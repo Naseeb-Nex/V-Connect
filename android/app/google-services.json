@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "954112153767",
+    "project_id": "vconnect-9f6ad",
+    "storage_bucket": "vconnect-9f6ad.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:954112153767:android:68197271260d421a2ae382",
+        "android_client_info": {
+          "package_name": "com.naseebnex.vconnect"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "954112153767-qe8qruf3tsh0m0n1a93q1f5hlv7evan1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBzxzVGkLt41tjm1nXoYgFyfqD7E1pwzPY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "954112153767-qe8qruf3tsh0m0n1a93q1f5hlv7evan1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

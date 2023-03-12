@@ -1,8 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:provider/provider.dart';
+import 'package:vconnect/screens/auth/authentication.dart';
 import 'package:vconnect/screens/splashscreen.dart';
 
-void main() {
-  runApp( MyApp());
+
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -13,10 +21,29 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    
-    return MaterialApp(
-      title: 'VConnect',
-      debugShowCheckedModeBanner: false,
+
+    return MultiProvider(
+      providers: [
+        Provider<AuthenticationService>(
+          create: (_) => AuthenticationService(FirebaseAuth.instance),
+        ),
+        StreamProvider(
+          create: (context) =>
+              context.read<AuthenticationService>().authStateChanges,
+          initialData: null,
+        )
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        localizationsDelegates: [
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+        ],
+        locale: Locale('en', 'US'),
+        supportedLocales: [
+          const Locale('en', 'US'), // English
+        ],
+       title: 'VConnect',
       theme: ThemeData(
         primaryColor: _primaryColor,
         accentColor: _accentColor,
@@ -24,6 +51,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.grey,
       ),
       home:  SplashScreen(),
+      ),
     );
   }
 }
