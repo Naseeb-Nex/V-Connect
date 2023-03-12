@@ -1,36 +1,66 @@
-import 'package:animated_splash_screen/animated_splash_screen.dart';
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:vconnect/screens/login.dart';
 
-import '../constants/constants.dart';
-import '../main.dart';
-import 'login.dart';
 
-// Splash Screen
-class SplashSrc extends StatefulWidget {
-  const SplashSrc({Key? key}) : super(key: key);
+class SplashScreen extends StatefulWidget {
+  SplashScreen({Key? key}) : super(key: key);
 
   @override
-  // ignore: library_private_types_in_public_api
-  _SplashSrcState createState() => _SplashSrcState();
+  _SplashScreenState createState() => _SplashScreenState();
 }
 
-class _SplashSrcState extends State<SplashSrc> {
+class _SplashScreenState extends State<SplashScreen> {
+  bool _isVisible = false;
+
+  _SplashScreenState(){
+
+     Timer(const Duration(milliseconds: 2000), (){
+      setState(() {
+        Navigator.of(context).pushAndRemoveUntil(
+        MaterialPageRoute(builder: (context) => LoginPage()), (route) => false);
+      });
+    });
+
+     Timer(
+      const Duration(milliseconds: 10),(){
+        setState(() {
+          _isVisible = true; // Now it is showing fade effect and navigating to Login page
+        });
+      }
+    );
+
+  }
+
   @override
   Widget build(BuildContext context) {
-    // Adaptive size
-    Size s = MediaQuery.of(context).size;
-    return AnimatedSplashScreen(
-      splash: Image.asset(
-        "assets/icons/appicon.png",
-        width: s.width * 0.5,
-        height: s.width * 0.5,
-        fit: BoxFit.fill,
+
+    return Container(
+      decoration:  BoxDecoration(
+        gradient:  LinearGradient(
+          colors: [Theme.of(context).accentColor, Theme.of(context).primaryColor],
+          begin: const FractionalOffset(0, 0),
+          end: const FractionalOffset(1.0, 0.0),
+          stops: [0.0, 1.0],
+          tileMode: TileMode.clamp,
+        ),
       ),
-      nextScreen: const LoginPage(),
-      duration: 100,
-      backgroundColor: primarycolor,
-      splashTransition: SplashTransition.slideTransition,
-      // pageTransitionType: PageTransitionType.fade,
+      child: AnimatedOpacity(
+        opacity: _isVisible ? 1.0 : 0,
+        duration: Duration(milliseconds: 1200),
+        child: Center(
+          child: Container(
+            height: 140.0,
+            width: 140.0,
+            child: Center(
+              child: ClipOval(
+                child: Image.asset("assets/icons/appicon.png" ), //put your logo here
+              ),
+            ),
+          ),
+        ),
+      ),
     );
   }
 }
