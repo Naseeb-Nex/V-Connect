@@ -2,23 +2,27 @@ import 'package:flutter/material.dart';
 import 'package:vconnect/screens/splashscreen.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp( MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+   MyApp({super.key});
+    // Our Logo Blue Color
+  Color _primaryColor= Color(0XFF651BD2);
+  Color _accentColor= Color(0XFF320181);
 
   @override
   Widget build(BuildContext context) {
+    
     return MaterialApp(
       title: 'VConnect',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-          colorScheme: ColorScheme.fromSwatch().copyWith(
-            primary: const Color(0XFF371DD2),
-          ),
-          visualDensity: VisualDensity.adaptivePlatformDensity,
-        ),
+        primaryColor: _primaryColor,
+        accentColor: _accentColor,
+        scaffoldBackgroundColor: Colors.grey.shade100,
+        primarySwatch: Colors.grey,
+      ),
       home: const SplashSrc(),
     );
   }

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../constants/constants.dart';
 import '../main.dart';
+import 'login.dart';
 
 // Splash Screen
 class SplashSrc extends StatefulWidget {
@@ -21,11 +22,11 @@ class _SplashSrcState extends State<SplashSrc> {
     return AnimatedSplashScreen(
       splash: Image.asset(
         "assets/icons/appicon.png",
-        width: s.width * 0.3,
+        width: s.width * 0.5,
         height: s.width * 0.5,
         fit: BoxFit.fill,
       ),
-      nextScreen: const MyHomePage(title: "Home screen"),
+      nextScreen: const LoginPage(),
       duration: 100,
       backgroundColor: primarycolor,
       splashTransition: SplashTransition.slideTransition,
