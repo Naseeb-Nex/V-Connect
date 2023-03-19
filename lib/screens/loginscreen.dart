@@ -1,5 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:vconnect/constants/constants.dart';
 import 'package:vconnect/screens/homescreen.dart';
 import 'package:vconnect/screens/registration_page.dart';
 
@@ -18,7 +19,7 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-   // firebase Auth
+  // firebase Auth
   final _auth = FirebaseAuth.instance;
   // form key
   final _formKey = GlobalKey<FormState>();
@@ -37,7 +38,6 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      // TODO : Loading need to be added
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -120,15 +120,15 @@ class _LoginScreenState extends State<LoginScreen> {
                                 textInputAction: TextInputAction.done,
                                 decoration: ThemeHelper().textInputDecoration(
                                     'Password', 'Enter your password'),
-                                style: const 
-                                TextStyle(
+                                style: const TextStyle(
                                   fontFamily: "Montserrat",
                                   fontSize: 15,
                                 ),
                               ),
                               const SizedBox(height: 15.0),
                               Container(
-                                margin: const EdgeInsets.fromLTRB(10, 0, 10, 20),
+                                margin:
+                                    const EdgeInsets.fromLTRB(10, 0, 10, 20),
                                 alignment: Alignment.topRight,
                                 child: GestureDetector(
                                   onTap: () {
@@ -155,17 +155,38 @@ class _LoginScreenState extends State<LoginScreen> {
                                   child: Padding(
                                     padding: const EdgeInsets.fromLTRB(
                                         40, 10, 40, 10),
-                                    child: Text(
-                                      'Sign In'.toUpperCase(),
-                                      style: const TextStyle(
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.white,
-                                          fontFamily: "Montserrat"),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          'Sign In'.toUpperCase(),
+                                          style: const TextStyle(
+                                              fontSize: 20,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.white,
+                                              fontFamily: "Montserrat"),
+                                        ),
+                                        const SizedBox(
+                                          width: 15,
+                                        ),
+                                        Container(
+                                            child: load
+                                                ? const SizedBox(
+                                                    height: 15,
+                                                    width: 15,
+                                                    child:
+                                                        CircularProgressIndicator(
+                                                            color: white))
+                                                : null),
+                                      ],
                                     ),
                                   ),
                                   onPressed: () {
-                                    signIn(emailController.text, passwordController.text);
+                                    signIn(emailController.text,
+                                        passwordController.text);
                                   },
                                 ),
                               ),
@@ -217,8 +238,8 @@ class _LoginScreenState extends State<LoginScreen> {
             .signInWithEmailAndPassword(email: email, password: password)
             .then((uid) => {
                   Fluttertoast.showToast(msg: "Login Successful"),
-                  Navigator.of(context).pushReplacement(
-                      MaterialPageRoute(builder: (context) => const HomeScreen())),
+                  Navigator.of(context).pushReplacement(MaterialPageRoute(
+                      builder: (context) => const HomeScreen())),
                 });
         setState(() {
           load = false;
@@ -255,5 +276,4 @@ class _LoginScreenState extends State<LoginScreen> {
       }
     }
   }
-
 }
