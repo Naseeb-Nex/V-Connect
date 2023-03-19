@@ -3,7 +3,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 import '../components/theme_helper.dart';
-import 'login.dart';
+import 'loginscreen.dart';
 import 'widgets/header_widget.dart';
 
 class ForgotPasswordPage extends StatefulWidget {
@@ -114,7 +114,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                                       ..onTap = () {
                                         Navigator.push(
                                           context,
-                                          MaterialPageRoute(builder: (context) => LoginPage()),
+                                          MaterialPageRoute(builder: (context) => LoginScreen()),
                                         );
                                       },
                                     style: const  TextStyle(fontFamily: "Montserrat",

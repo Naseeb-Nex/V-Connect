@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
-import 'package:vconnect/screens/auth/authentication.dart';
+import 'package:vconnect/auth/authentication.dart';
 import 'package:vconnect/screens/splashscreen.dart';
 
 
