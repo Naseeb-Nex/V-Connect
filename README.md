@@ -31,6 +31,12 @@ To get started with the application, follow these steps:
 6. Replace the `google-services.json` file in the `android/app` directory with the one generated for your Firebase project.
 7. Run the command `flutter run` to launch the application on your device or emulator.
 
+
+## Demo Video
+
+Here's a [demo video](https://drive.google.com/file/d/1SygRQD7-kfcFb37-1lNAUfFrfQ_4P5TU/view?usp=share_link) of the application.
+
+
 ## Technologies Used
 
 The application is built using the following technologies:
