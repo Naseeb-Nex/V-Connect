@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:provider/provider.dart';
 import 'package:vconnect/screens/homescreen.dart';
-import 'package:vconnect/screens/login.dart';
+import 'package:vconnect/screens/loginscreen.dart';
 
 class AuthenticationWrapper extends StatelessWidget {
   @override
@@ -12,6 +12,6 @@ class AuthenticationWrapper extends StatelessWidget {
     if (firebaseUser != null) {
       return const HomeScreen();
     }
-    return const LoginPage();
+    return const LoginScreen();
   }
 }
