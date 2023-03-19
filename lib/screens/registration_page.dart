@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -19,23 +21,24 @@ class RegistrationPage extends StatefulWidget {
 }
 
 class _RegistrationPageState extends State<RegistrationPage> {
-  FirebaseFirestore fb = FirebaseFirestore.instance;
-  // Form Key
-  final _formKey = GlobalKey<FormState>();
-  bool checkedValue = false;
   bool checkboxValue = false;
-
+  bool checkedValue = false;
+  FirebaseFirestore fb = FirebaseFirestore.instance;
+  bool vLoading = false;
   // Username validation
   bool valid_username = false;
 
-  final TextEditingController _firstnameController = TextEditingController();
-  final TextEditingController _lastnameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _usernameController = TextEditingController();
-  final TextEditingController _phnController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _firstnameController = TextEditingController();
+  // Form Key
+  final _formKey = GlobalKey<FormState>();
+
   Uint8List? _image;
   bool _isLoading = false;
+  final TextEditingController _lastnameController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _phnController = TextEditingController();
+  final TextEditingController _usernameController = TextEditingController();
 
   @override
   void dispose() {
@@ -97,6 +100,37 @@ class _RegistrationPageState extends State<RegistrationPage> {
     );
   }
 
+// Fetching details from the 
+  Future<bool> checkIfUsernameExists(String username) async {
+    final result = await FirebaseFirestore.instance
+        .collection('users')
+        .where('username', isEqualTo: username)
+        .get();
+
+    return result.docs.isNotEmpty;
+  }
+
+// Username Validator function
+  usernameValidator(String value) async {
+    setState(() {
+      vLoading = true;
+    });
+    final username = _usernameController.text.trim();
+
+    if (await checkIfUsernameExists(username)) {
+      setState(() {
+        valid_username = true;
+      });
+    } else {
+      setState(() {
+        valid_username = false;
+      });
+    }
+    setState(() {
+      vLoading = false;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -118,11 +152,11 @@ class _RegistrationPageState extends State<RegistrationPage> {
                     key: _formKey,
                     child: Column(
                       children: [
-                        // TODO : image picker
                         GestureDetector(
                           onTap: () => selectImage(),
                           child: Stack(
                             children: [
+                              // Image picker
                               Container(
                                 padding: const EdgeInsets.all(10),
                                 decoration: BoxDecoration(
@@ -169,6 +203,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                         const SizedBox(
                           height: 30,
                         ),
+                        // First Name Text Feild
                         TextFormField(
                           controller: _firstnameController,
                           onSaved: (value) {
@@ -191,6 +226,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                         const SizedBox(
                           height: 30,
                         ),
+                        // Last Name Text Feild
                         TextFormField(
                           controller: _lastnameController,
                           onSaved: (value) {
@@ -211,28 +247,47 @@ class _RegistrationPageState extends State<RegistrationPage> {
                           ),
                         ),
                         const SizedBox(height: 20.0),
-                        TextFormField(
-                          controller: _usernameController,
-                          onSaved: (value) {
-                            _usernameController.text = value!;
-                          },
-                          textInputAction: TextInputAction.next,
-                          autovalidateMode: AutovalidateMode.onUserInteraction,
-                          decoration: ThemeHelper().textInputDecoration(
-                              'Username', 'Enter your Username'),
-                          onChanged: (value) => usernameValidator(value),
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return ("Please enter a Username");
-                            } else if (valid_username) {
-                              return ("Username is not valid");
-                            }
-                            return null;
-                          },
-                          style: const TextStyle(
-                            fontFamily: "Montserrat",
-                            fontSize: 15,
-                          ),
+                        // Username Text Feild with validation functionality
+                        Stack(
+                          children: [
+                            TextFormField(
+                              autovalidateMode:
+                                  AutovalidateMode.onUserInteraction,
+                                  // On change check the username is already taken or not
+                              onChanged: (value) => usernameValidator(value),
+                              controller: _usernameController,
+                              onSaved: (value) {
+                                _usernameController.text = value!;
+                              },
+                              textInputAction: TextInputAction.next,
+                              decoration: ThemeHelper().textInputDecoration(
+                                  'Username', 'Enter your Username'),
+                              validator: (value) {
+                                if (value!.isEmpty) {
+                                  return ("Please enter a Username");
+                                } else if (valid_username) {
+                                  return ("Username already taken!");
+                                }
+                                return null;
+                              },
+                              style: const TextStyle(
+                                fontFamily: "Montserrat",
+                                fontSize: 15,
+                              ),
+                            ),
+                            if (vLoading)
+                              const Positioned(
+                                right: 10,
+                                top: 16,
+                                child: SizedBox(
+                                    height: 15,
+                                    width: 15,
+                                    child: CircularProgressIndicator(
+                                      color: primarycolor,
+                                      strokeWidth: 2,
+                                    )),
+                              ),
+                          ],
                         ),
                         const SizedBox(height: 20.0),
                         TextFormField(
@@ -427,26 +482,5 @@ class _RegistrationPageState extends State<RegistrationPage> {
         ),
       ),
     );
-  }
-
-  Future<bool> userExists(String username) async => (await fb
-          .collection("users")
-          .where("username", isEqualTo: username)
-          .get())
-      .docs
-      .isNotEmpty;
-
-  usernameValidator(String value) async {
-    // if (userExists == false) {
-    //   // Username is already used
-    //   setState(() {
-    //     valid_username = false;
-    //   });
-    // } else {
-    //   // Username is available
-    //   setState(() {
-    //     valid_username = true;
-    //   });
-    // }
   }
 }
