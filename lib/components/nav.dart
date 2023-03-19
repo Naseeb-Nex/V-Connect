@@ -3,7 +3,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:vconnect/constants/constants.dart';
+import 'package:vconnect/screens/add_post_screen.dart';
+import 'package:vconnect/screens/feed_screen.dart';
+import 'package:vconnect/screens/notification_screen.dart';
 import 'package:vconnect/screens/profilescreen.dart';
+import 'package:vconnect/screens/search_screen.dart';
 
 class MainNavScreen extends StatefulWidget {
   const MainNavScreen({super.key});
@@ -51,40 +55,40 @@ int _page = 0;
         items: [
           BottomNavigationBarItem(
             icon: Icon(
-              Icons.home_rounded,
-              color: _page == 0 ? white : primarycolor,
+              Iconsax.home_trend_up,
+              color: _page == 0 ? white : gray,
+            ),
+            label: '',
+            backgroundColor: trans,
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(
+              Iconsax.search_normal,
+              color: _page == 1 ? white : gray,
             ),
             label: '',
             backgroundColor: white,
           ),
           BottomNavigationBarItem(
             icon: Icon(
-              Icons.search_rounded,
-              color: _page == 1 ? white : primarycolor,
+              Iconsax.add_circle,
+              color: _page == 2 ? white : gray,
             ),
             label: '',
             backgroundColor: white,
           ),
           BottomNavigationBarItem(
             icon: Icon(
-              Icons.add_circle_rounded,
-              color: _page == 2 ? white : primarycolor,
+              Iconsax.document_favorite,
+              color: _page == 3 ? white : gray,
             ),
             label: '',
             backgroundColor: white,
           ),
           BottomNavigationBarItem(
             icon: Icon(
-              Icons.favorite_rounded,
-              color: _page == 3 ? white : primarycolor,
-            ),
-            label: '',
-            backgroundColor: white,
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.person,
-              color: _page == 4 ? white : primarycolor,
+              Iconsax.profile_circle,
+              color: _page == 4 ? white : gray,
             ),
             label: '',
             backgroundColor: white,
@@ -95,3 +99,11 @@ int _page = 0;
     );
   }
 }
+
+List<Widget> homeScreenItems = [
+  const FeedScreen(),
+  const SearchScreen(),
+  const AddPostScreen(),
+  const NotificationScreen(),
+  const ProfileScreen(),
+];
