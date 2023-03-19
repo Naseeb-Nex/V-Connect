@@ -1,7 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:vconnect/components/nav.dart';
 import 'package:vconnect/constants/constants.dart';
-import 'package:vconnect/screens/homescreen.dart';
 import 'package:vconnect/screens/registration_page.dart';
 
 import '../components/theme_helper.dart';
@@ -239,7 +239,7 @@ class _LoginScreenState extends State<LoginScreen> {
             .then((uid) => {
                   Fluttertoast.showToast(msg: "Login Successful"),
                   Navigator.of(context).pushReplacement(MaterialPageRoute(
-                      builder: (context) => const HomeScreen())),
+                      builder: (context) => const MainNavScreen())),
                 });
         setState(() {
           load = false;

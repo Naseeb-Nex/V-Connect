@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:vconnect/auth/auth_methods.dart';
+import 'package:vconnect/components/nav.dart';
 import 'package:vconnect/constants/constants.dart';
-import 'package:vconnect/screens/homescreen.dart';
 import 'package:vconnect/screens/loginscreen.dart';
 import 'package:vconnect/screens/widgets/header_widget.dart';
 import 'package:vconnect/utils/imagepicker.dart';
@@ -75,7 +75,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
     if (res == "success") {
       Navigator.of(context).pushAndRemoveUntil(
           MaterialPageRoute(
-            builder: (context) => const HomeScreen(),
+            builder: (context) => const MainNavScreen(),
           ),
           (route) => false);
       setState(() {
