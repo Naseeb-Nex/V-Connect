@@ -23,6 +23,16 @@ The application also shows a list of mutual friends between two users. A mutual 
 
 Here's a [demo video](https://drive.google.com/file/d/1SygRQD7-kfcFb37-1lNAUfFrfQ_4P5TU/view?usp=share_link) of the application.
 
+## Screenshots
+
+|                                                Splash Screen                                                 |                                                 Login Screen                                                  |                                                Register Screen                                                 |                                                  Forgot Password Screen                                                  |
+| :---------------------------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------------------: |
+| ![Splash Screen](readme-assets/ss1.png) | ![Login Screen](readme-assets/ss2.png) | ![Register Screen](readme-assets/ss3.png) | ![Fogot Password Screen](readme-assets/ss4.png) |
+
+|                                                Profile Screen                                                 |
+| :---------------------------------------------------------------------------------------------------------: |
+| ![Profile Screen](readme-assets/ss5.png) |
+
 ## Running the Code
 
 To run the code, follow these steps:
